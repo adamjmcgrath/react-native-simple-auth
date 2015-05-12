@@ -5,6 +5,7 @@
 'use strict';
 
 var React = require('react-native');
+var SimpleAuthWrapper = require('NativeModules').SimpleAuthWrapper;
 var {
   AppRegistry,
   StyleSheet,
@@ -36,17 +37,17 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+    marginBottom: 5
   },
 });
 

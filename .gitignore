@@ -21,6 +21,10 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+*.xcworkspace
+project.pbxproj
+Podfile.lock
+Pods
 
 # node.js
 #
