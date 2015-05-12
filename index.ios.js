@@ -6,49 +6,84 @@
 
 var React = require('react-native');
 var SimpleAuthWrapper = require('NativeModules').SimpleAuthWrapper;
-var {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-} = React;
+var secrets = require('./secrets');
+
+for (var provider in secrets) {
+  SimpleAuthWrapper.configure(provider, secrets[provider]);
+}
+
+var Login = React.createClass({
+  render: function() {
+    return (
+      <React.View style={styles.content}>
+        <React.TouchableHighlight
+          style={[styles.button, {backgroundColor: '#ccc'}]}
+          onPress={this.onSearchPressed.bind(this, 'google-web')}>
+          <React.Text style={[styles.buttonText, {color: '#000'}]}>Google</React.Text>
+        </React.TouchableHighlight>
+        <React.TouchableHighlight
+          style={[styles.button, {backgroundColor: '#3b5998'}]}
+          onPress={this.onSearchPressed.bind(this, 'facebook')}>
+          <React.Text style={styles.buttonText}>Facebook</React.Text>
+        </React.TouchableHighlight>
+        <React.TouchableHighlight
+          style={[styles.button, {backgroundColor: '#48BBEC'}]}
+          onPress={this.onSearchPressed.bind(this, 'twitter')}>
+          <React.Text style={styles.buttonText}>Twitter</React.Text>
+        </React.TouchableHighlight>
+      </React.View>
+    );
+  },
+
+  onSearchPressed: function(provider) {
+    console.log(provider);
+    SimpleAuthWrapper.authorize(provider, function(error, credentials, info) {
+      console.log('resp:');
+      console.log(error, credentials, info);
+    });
+  }
+})
 
 var ReactNativeSimpleAuth = React.createClass({
   render: function() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <React.NavigatorIOS
+       style={styles.container}
+       initialRoute={{
+         title: 'Simple Auth',
+         component: Login
+       }}/>
     );
   }
 });
 
-var styles = StyleSheet.create({
+var styles = React.StyleSheet.create({
+  text: {
+    color: 'black',
+    backgroundColor: 'white',
+    fontSize: 30
+  },
   container: {
+    flex: 1
+  },
+  content: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    marginTop: 80,
+    marginRight: 10,
+    marginLeft: 10
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    alignSelf: 'center'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5
-  },
+  button: {
+    height: 36,
+    flexDirection: 'row',
+    borderRadius: 8,
+    marginBottom: 10,
+    justifyContent: 'center'
+  }
 });
 
-AppRegistry.registerComponent('ReactNativeSimpleAuth', () => ReactNativeSimpleAuth);
+React.AppRegistry.registerComponent('ReactNativeSimpleAuth', () => ReactNativeSimpleAuth);
