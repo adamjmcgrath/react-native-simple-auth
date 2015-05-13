@@ -17,7 +17,11 @@ RCT_EXPORT_METHOD(authorize:(NSString*)provider
     NSLog(@"\nResponse: %@\nError:%@", responseObject, error);
     
     if (error) {
-      callback(@[error.description]);
+      NSDictionary *userInfo = [error userInfo];
+      NSString *errorString = [[userInfo objectForKey:NSUnderlyingErrorKey] localizedDescription];
+      NSDictionary *dict=@{@"code": [NSNumber numberWithInteger:error.code],
+                           @"description": errorString};
+      callback(@[dict]);
     } else {
       NSDictionary *credentials = [responseObject objectForKey: @"credentials"];
       NSDictionary *info = [responseObject objectForKey: @"info"];
