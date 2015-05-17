@@ -5,9 +5,18 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(configure:(NSString*)provider config:(NSDictionary*)config) {
+RCT_EXPORT_METHOD(configure:(NSString*)provider config:(NSDictionary*)config
+                  callback:(RCTResponseSenderBlock)callback) {
   NSLog(@"Configuring %@ with %@", provider, config);
-  SimpleAuth.configuration[provider] = config;
+  if ([provider isEqualToString:@"instagram"]) {
+    SimpleAuth.configuration[@"instagram"] = @{
+       @"client_id": [config objectForKey: @"client_id"],
+       SimpleAuthRedirectURIKey : [config objectForKey: @"redirect_uri"]
+     };
+  } else {
+    SimpleAuth.configuration[provider] = config;
+  }
+  callback(@[provider]);
 };
 
 RCT_EXPORT_METHOD(authorize:(NSString*)provider
@@ -22,10 +31,20 @@ RCT_EXPORT_METHOD(authorize:(NSString*)provider
       NSDictionary *dict=@{@"code": [NSNumber numberWithInteger:error.code],
                            @"description": errorString};
       callback(@[dict]);
-    } else {
+    } else if (responseObject) {
       NSDictionary *credentials = [responseObject objectForKey: @"credentials"];
-      NSDictionary *info = [responseObject objectForKey: @"info"];
-      callback(@[[NSNull null], credentials, info]);
+      NSString *token = [credentials objectForKey: @"token"];
+      
+      NSDictionary *extra;
+      if ([responseObject objectForKey:@"extra"]) {
+        extra = [responseObject objectForKey: @"extra"];
+      } else {
+        extra = responseObject;
+      }
+      
+      callback(@[[NSNull null], token, [extra objectForKey: @"raw_info"]]);
+    } else {
+      callback(@[@true]);
     }
   }];
 }
