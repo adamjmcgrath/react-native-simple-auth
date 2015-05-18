@@ -4,96 +4,150 @@
  */
 'use strict';
 
-var React = require('react-native');
-var SimpleAuthWrapper = require('NativeModules').SimpleAuthWrapper;
-var secrets = require('./secrets');
+let React = require('react-native');
+let simpleAuthClient = require('./lib/simpleauthclient');
+let secrets = require('./secrets');
 
-for (var provider in secrets) {
-  SimpleAuthWrapper.configure(provider, secrets[provider], function() {});
-}
+class Profile extends React.Component {
 
-var Profile = React.createClass({
-  render: function() {
-    console.log(this);
+  constructor(props) {
+    props.token = props.info.token;
+    delete props.info.token;
+    super(props);
+    this.state = {
+      name: this.getName(props.provider),
+      picture: this.getPictureLink(props.provider)
+    };
+  }
+
+  render() {
     return (
       <React.View style={styles.content}>
-        <React.Image style={styles.pic} source={{uri: this.props.info.picture}} />
-        <React.Text style={styles.header}>{this.props.info.name}</React.Text>
+        <React.Image style={styles.pic} source={{uri: this.state.picture }} />
+        <React.Text style={styles.header}>{this.state.name}</React.Text>
         <React.View style={styles.scroll}>
           <React.Text style={styles.mono}>{JSON.stringify(this.props.info, null, 4)}</React.Text>
         </React.View>
       </React.View>
     )
   }
-});
 
-var Login = React.createClass({
-  render: function() {
+  getName(provider) {
+    switch (provider) {
+      case 'instagram':
+        return this.props.info.data.full_name;
+      case 'linkedin-web':
+        return `${this.props.info.firstName} ${this.props.info.lastName}`;
+      default:
+        return this.props.info.name
+    }
+  }
+
+  getPictureLink(provider) {
+    switch (provider) {
+      case 'google-web':
+        return this.props.info.picture;
+      case 'facebook':
+        return `http://graph.facebook.com/${this.props.info.id}/picture?type=square`
+      case 'twitter':
+        return this.props.info.profile_image_url;
+      case 'instagram':
+        return this.props.info.data.profile_picture;
+      case 'tumblr':
+        return `http://api.tumblr.com/v2/blog/${this.props.info.name}.tumblr.com/avatar/96`;
+      case 'linkedin-web':
+        var profileUrl = `https://api.linkedin.com/v1/people/~:(picture-url)?oauth2_access_token=${this.props.token}&format=json`
+        fetch(profileUrl)
+          .then(response => response.json())
+          .then(responseJson => {
+            this.setState({ picture: responseJson.pictureUrl });
+          });
+        return '';
+    }
+  }
+
+};
+
+class Login extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+  }
+
+  componentWillMount() {
+    simpleAuthClient.configure(secrets);
+  }
+
+  render() {
     return (
       <React.View style={styles.content}>
-        <React.TouchableHighlight
-          style={[styles.button, {backgroundColor: '#FFF', borderColor: '#CCC', borderWidth: 1}]}
-          onPress={this.onBtnPressed.bind(this, 'google-web')}>
-          <React.Text style={[styles.buttonText, {color: '#000'}]}>Google</React.Text>
-        </React.TouchableHighlight>
-        <React.TouchableHighlight
-          style={[styles.button, {backgroundColor: '#3b5998'}]}
-          onPress={this.onBtnPressed.bind(this, 'facebook')}>
-          <React.Text style={styles.buttonText}>Facebook</React.Text>
-        </React.TouchableHighlight>
-        <React.TouchableHighlight
-          style={[styles.button, {backgroundColor: '#48BBEC'}]}
-          onPress={this.onBtnPressed.bind(this, 'twitter')}>
-          <React.Text style={styles.buttonText}>Twitter</React.Text>
-        </React.TouchableHighlight>
-        <React.TouchableHighlight
-          style={[styles.button, {backgroundColor: '#3F729B'}]}
-          onPress={this.onBtnPressed.bind(this, 'instagram')}>
-          <React.Text style={styles.buttonText}>Instagram</React.Text>
-        </React.TouchableHighlight>
-        <React.TouchableHighlight
-          style={[styles.button, {backgroundColor: '#36465D'}]}
-          onPress={this.onBtnPressed.bind(this, 'tumblr')}>
-          <React.Text style={styles.buttonText}>Tumblr</React.Text>
-        </React.TouchableHighlight>
-        <React.TouchableHighlight
-          style={[styles.button, {backgroundColor: '#0077B5'}]}
-          onPress={this.onBtnPressed.bind(this, 'linkedin-web')}>
-          <React.Text style={styles.buttonText}>LinkedIn</React.Text>
-        </React.TouchableHighlight>
+        {
+          this.state.loading ? null : this.props.authProviders.map(provider => {
+            return (
+              <React.TouchableHighlight
+                style={[styles.button, styles[provider]]}
+                onPress={this.onBtnPressed.bind(this, provider)}>
+                <React.Text style={[styles.buttonText]}>{provider.split('-')[0]}</React.Text>
+              </React.TouchableHighlight>
+            );
+          })
+        }
+        <React.ActivityIndicatorIOS
+            animating={this.state.loading}
+            style={[styles.loading]}
+            size='large' />
       </React.View>
     );
-  },
+  }
 
-  onBtnPressed: function(provider) {
-    var _this = this;
-    SimpleAuthWrapper.authorize(provider, function(error, credentials, info) {
-      console.log(info);
-      if (!error) {
-        _this.props.navigator.push({
-          title: provider,
-          component: Profile,
-          passProps: {info: info}
-        });
-      }
+  onBtnPressed(provider) {
+    this.setState({
+      loading: true
+    });
+    simpleAuthClient.authorize(provider).then(info => {
+      this.props.navigator.push({
+        title: provider,
+        component: Profile,
+        passProps: {
+          info: info,
+          provider: provider
+        }
+      });
+      this.setState({
+        loading: false
+      });
     });
   }
-})
 
-var ReactNativeSimpleAuth = React.createClass({
-  render: function() {
+};
+
+class ReactNativeSimpleAuth extends React.Component {
+  render() {
     return (
       <React.NavigatorIOS
-       style={styles.container}
-       initialRoute={{
-         title: 'Simple Auth',
-         component: Login
-       }}/>
+        style={styles.container}
+        initialRoute={{
+          title: 'Simple Auth',
+          component: Login,
+          passProps: {
+            authProviders: [
+              'google-web',
+              'facebook',
+              'twitter',
+              'instagram',
+              'tumblr',
+              'linkedin-web'
+            ]
+          }
+        }}/>
     );
   }
-});
+};
 
-var styles = React.StyleSheet.create({
+let styles = React.StyleSheet.create({
   text: {
     color: 'black',
     backgroundColor: 'white',
@@ -143,6 +197,29 @@ var styles = React.StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     fontSize: 16
+  },
+  loading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  'google-web': {
+    backgroundColor: '#ccc'
+  },
+  facebook: {
+    backgroundColor: '#3b5998'
+  },
+  twitter: {
+    backgroundColor: '#48BBEC'
+  },
+  instagram: {
+    backgroundColor: '#3F729B'
+  },
+  tumblr: {
+    backgroundColor: '#36465D'
+  },
+  'linkedin-web': {
+    backgroundColor: '#0077B5'
   }
 });
 
