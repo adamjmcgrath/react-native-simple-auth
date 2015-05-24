@@ -1,6 +1,6 @@
 {
   "name": "react-native-simple-auth",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Native social authentication for React Native on iOS",
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
