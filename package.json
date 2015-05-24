@@ -1,11 +1,27 @@
 {
   "name": "react-native-simple-auth",
   "version": "0.0.1",
-  "private": true,
+  "description": "Native social authentication for React Native on iOS",
   "scripts": {
-    "start": "node_modules/react-native/packager/packager.sh"
+    "start": "node_modules/react-native/packager/packager.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "react-native": "0.4.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adamjmcgrath/react-native-simple-auth"
+  },
+  "homepage": "https://github.com/adamjmcgrath/react-native-simple-auth",
+  "author": "Adam Mcgrath",
+  "keywords": [
+    "react-native",
+    "react",
+    "iOS",
+    "simple-auth"
+  ],
+  "bugs": {
+    "url": "https://github.com/adamjmcgrath/react-native-simple-auth/issues"
   }
 }
