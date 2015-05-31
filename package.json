@@ -23,5 +23,8 @@
   ],
   "bugs": {
     "url": "https://github.com/adamjmcgrath/react-native-simple-auth/issues"
+  },
+  "devDependencies": {
+    "doxx": "^1.4.0"
   }
 }
