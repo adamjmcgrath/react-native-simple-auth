@@ -66,7 +66,7 @@ class Profile extends React.Component {
     }
   }
 
-};
+}
 
 class Login extends React.Component {
 
@@ -122,7 +122,7 @@ class Login extends React.Component {
     });
   }
 
-};
+}
 
 class ReactNativeSimpleAuth extends React.Component {
   render() {
@@ -145,7 +145,7 @@ class ReactNativeSimpleAuth extends React.Component {
         }}/>
     );
   }
-};
+}
 
 let styles = React.StyleSheet.create({
   text: {
