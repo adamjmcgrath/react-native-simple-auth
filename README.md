@@ -41,7 +41,8 @@ Create an instance of the SimpleAuthWrapper library:
 
 ```javascript
 let SimpleAuthClient = require('react-native-simple-aut');
-let simpleAuthClient = new SimpleAuthClient();```
+let simpleAuthClient = new SimpleAuthClient();
+```
 
 Configure the library with a single provider:
 
@@ -51,7 +52,8 @@ simpleAuthClient.configure('twitter', {
   consumer_secret: 'SECRET'
 }).then(() => {
   // Twitter is configured.
-})```
+})
+```
 
 Or multiple providers:
 
@@ -66,7 +68,8 @@ simpleAuthClient.configure({
   }
 }).then(() => {
   // Twitter & Facebook are configured.
-});``
+});
+```
 
 Then authorize each provider:
 
@@ -77,7 +80,8 @@ simpleAuthClient.authorize('twitter').then((info) => {
 }).catch((error) => {
   let errorCode = error.code;
   let errorDescription = error.description;
-});``
+});
+```
 
 License
 =======
