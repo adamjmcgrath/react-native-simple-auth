@@ -1,5 +1,5 @@
 # react-native-simple-auth
-SimpleAuth iOS wrapper for React Native [WIP]
+[SimpleAuth iOS](https://github.com/calebd/SimpleAuth) wrapper for React Native [WIP]
 
 ![Screencast](https://raw.githubusercontent.com/adamjmcgrath/react-native-simple-auth/master/screencast.gif)
 
