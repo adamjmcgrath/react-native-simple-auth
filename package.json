@@ -2,6 +2,7 @@
   "name": "react-native-simple-auth",
   "version": "0.0.2",
   "description": "Native social authentication for React Native on iOS",
+  "main": "lib/simpleauthclient.js",
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
