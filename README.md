@@ -41,8 +41,7 @@ Create an instance of the SimpleAuthWrapper library:
 
 ```javascript
 let SimpleAuthClient = require('react-native-simple-aut');
-let simpleAuthClient = new SimpleAuthClient();
-```
+let simpleAuthClient = new SimpleAuthClient();```
 
 Configure the library with a single provider:
 
