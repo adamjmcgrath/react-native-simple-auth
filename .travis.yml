@@ -1,0 +1,22 @@
+language: node_js
+
+node_js:
+  - '0.12'
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_ed11b53bbeb9_key -iv $encrypted_ed11b53bbeb9_iv -in deploy_key.enc -out .travis/deploy_key -d
+
+deploy:
+  provider: npm
+  email: adamjmcgrath@gmail.com
+  api_key:
+    secure: emLybhqeQeegcSWEzACh00h0379K+wZcHBTvBwIds+GkuBV6feC4LZaYvFkX3H7VKLEDC9nRB5GJ+n0ytiG38weK/ctSRt/IoJraWh3yg1p9vlRuqmHAxJ9wBP0lnbsAzglSDU036Uzt+zVPv9uHFhKifM05KfMXAJXz5Si5gRwFPICYKQjfmI9HmCn2OMsAetcIvi1A6IgEjOoeGew1CWcgmvbOZUcMeiXmdrBI/wcthuekM63xp3y2V5b2GcSvRKhDVUh/FhjT82+oEb7NKqVKvsCiKQXycRx3YJnFt06iEOcqN3TGWKm0x5tEOjUTvay4nRNje5Vq00XRXbRKiyDm52hNxHJe/AhvLzMJ65EfSJt0v4+g/964Y96wSaJrHu4DAKL1uj0IjcnOTi34UlTRQ6dIu5tJFZTs00Pc/PMOxA4k7Sq3YnGkM5wE1ymAeDKCJRX1uWHsKeWJB3DoOOvlDusEGYpLQYBsUJz13jrYn/v9bg4Z/sS+x9wBY2BFMfV79bbiaIg7YGMWuoXZEGlP6xdLp//ZhOLR7FUJeLBX0fdaCBX9/tVUZkNGV1fVjNZsKjYWzpZStVPv9iYpaiqRFQFwGpkCicXfem8AfpfSkRUsy8F4ikHY1+yUYZq++U0pbTnfkYfa0F9kMDUHUGSMvnLLHinLYmd700+N1k4=
+  on:
+    tags: true
+    repo: adamjmcgrath/react-native-simple-auth
+
+after_deploy:
+  - chmod 600 .travis/deploy_key.pem
+  - ssh-add .travis/deploy_key
+  - git remote add deploy DEPLOY_REPO_URI_GOES_HERE
+  - git push deploy
