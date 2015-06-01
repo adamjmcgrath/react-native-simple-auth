@@ -1,4 +1,4 @@
-# react-native-simple-auth
+# react-native-simple-auth [![Build Status](https://travis-ci.org/adamjmcgrath/react-native-simple-auth.svg?branch=chore%2Frelease-tasks)](https://travis-ci.org/adamjmcgrath/react-native-simple-auth)
 ## [SimpleAuth iOS](https://github.com/calebd/SimpleAuth) wrapper for React Native
 
   * [Screencast](#screencast)

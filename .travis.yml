@@ -16,7 +16,8 @@ deploy:
     repo: adamjmcgrath/react-native-simple-auth
 
 after_deploy:
+  - npm version minor -m "Set up next version %s [ci skip]"
   - chmod 600 .travis/deploy_key.pem
   - ssh-add .travis/deploy_key
-  - git remote add deploy DEPLOY_REPO_URI_GOES_HERE
+  - git remote add deploy https://github.com/adamjmcgrath/react-native-simple-auth.git
   - git push deploy
