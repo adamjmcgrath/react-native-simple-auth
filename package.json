@@ -5,7 +5,7 @@
   "main": "lib/simpleauthclient.js",
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
-    "test": "mocha ./test/* --compilers js:mocha-traceur "
+    "test": "mocha ./test/* --compilers js:mocha-traceur"
   },
   "dependencies": {
     "react-native": "0.4.4"
