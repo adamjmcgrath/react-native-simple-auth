@@ -5,6 +5,7 @@
   * [Install](#install)
   * [Usage](#usage)
   * [License](#license)
+  * [Thanks](#thanks)
 
 Screencast
 ==========
@@ -88,3 +89,7 @@ License
 
 react-native-simple-auth is released under the MIT license.
 
+Thanks
+======
+
+- [calebd](/calebd) for the code review and [SimpleAuth](/calebd/SimpleAuth) library
