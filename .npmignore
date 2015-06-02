@@ -2,3 +2,8 @@ screencast.gif
 ReactNativeSimpleAuth.xcodeproj
 ReactNativeSimpleAuth.xcworkspace
 ReactNativeSimpleAuthTests
+.travis
+Pods
+test
+.travis.yml
+secrets.js
