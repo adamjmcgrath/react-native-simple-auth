@@ -20,5 +20,5 @@ after_deploy:
   - git commit -am "Bump minor for next release [ci skip]"
   - chmod 600 .travis/deploy_key.pem
   - ssh-add .travis/deploy_key
-  - git remote add deploy https://github.com/adamjmcgrath/react-native-simple-auth.git
+  - git remote add deploy git@github.com:adamjmcgrath/react-native-simple-auth.git
   - git push deploy
