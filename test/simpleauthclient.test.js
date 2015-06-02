@@ -4,15 +4,14 @@ let sinon = require('sinon');
 
 describe('SimpleAuthClient', () => {
 
-  let SimpleAuthClient;
   let configureSpy;
   let authorizeSpy;
+  let simpleAuthClient;
 
-  beforeEach(() => {
+  before(() => {
     configureSpy = sinon.spy();
     authorizeSpy = sinon.spy();
-
-    SimpleAuthClient = proxyquire('../lib/simpleauthclient', {
+    simpleAuthClient = proxyquire('../lib/simpleauthclient', {
       NativeModules: {
         SimpleAuthWrapper: {
           configure: configureSpy,
@@ -23,19 +22,27 @@ describe('SimpleAuthClient', () => {
     });
   });
 
+  afterEach(() => {
+    configureSpy.reset();
+    authorizeSpy.reset();
+  });
+
+  after(() => {
+    configureSpy = null;
+    authorizeSpy = null;
+    simpleAuthClient = null;
+  });
+
   it('should instantiate ok', () => {
-    let simpleAuthClient = new SimpleAuthClient();
     expect(simpleAuthClient).to.be.ok;
   });
 
   it('should configure a single provider', () => {
-    let simpleAuthClient = new SimpleAuthClient();
     simpleAuthClient.configure('foo', {bar: 'baz'});
     expect(configureSpy).to.have.been.calledWith('foo', {bar: 'baz'});
   });
 
   it('should configure a multiple providers', () => {
-    let simpleAuthClient = new SimpleAuthClient();
     simpleAuthClient.configure({
       foo: {
         bar: 'baz'
@@ -50,7 +57,6 @@ describe('SimpleAuthClient', () => {
   });
 
   it('should authorize the given provider', () => {
-    let simpleAuthClient = new SimpleAuthClient();
     simpleAuthClient.authorize('foo');
     expect(authorizeSpy).to.have.been.calledWith('foo');
   });

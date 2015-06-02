@@ -1,5 +1,13 @@
 /**
- * Sample React Native App
+ * Sample React Native App using react-native-simple-auth.
+ * To run on a mac from the project home dir:
+ *
+ * 1. Create secrets.js from secrets.example.js template
+ * 2. `npm install`
+ * 3. `pod install`
+ * 3. `open ./ReactNativeSimpleAuth.xcworkspace/`
+ * 4. Then in xcode hit cmd + r
+ *
  * https://github.com/facebook/react-native
  */
 'use strict';
@@ -107,19 +115,28 @@ class Login extends React.Component {
     this.setState({
       loading: true
     });
-    simpleAuthClient.authorize(provider).then(info => {
-      this.props.navigator.push({
-        title: provider,
-        component: Profile,
-        passProps: {
-          info: info,
-          provider: provider
-        }
+    simpleAuthClient.authorize(provider)
+      .then(info => {
+        this.props.navigator.push({
+          title: provider,
+          component: Profile,
+          passProps: {
+            info: info,
+            provider: provider
+          }
+        });
+        this.setState({
+          loading: false
+        });
+      })
+      .catch(error => {
+          React.AlertIOS.alert(
+              'Authorize Error',
+              error && error.description || 'Unknown');
+        this.setState({
+          loading: false
+        });
       });
-      this.setState({
-        loading: false
-      });
-    });
   }
 
 }
