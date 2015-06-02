@@ -92,4 +92,4 @@ react-native-simple-auth is released under the MIT license.
 Thanks
 ======
 
-- [calebd](/calebd) for the code review and [SimpleAuth](/calebd/SimpleAuth) library
+- [calebd](https://github.com/calebd) for the code review and [SimpleAuth](https://github.com/calebd/SimpleAuth) library
