@@ -32,3 +32,6 @@ node_modules/
 npm-debug.log
 
 secrets.js
+.idea
+docs
+.travis/deploy_key
