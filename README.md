@@ -41,8 +41,7 @@ See [secrets.example.js](blob/master/secrets.example.js).
 Create an instance of the SimpleAuthWrapper library:
 
 ```javascript
-let SimpleAuthClient = require('react-native-simple-aut');
-let simpleAuthClient = new SimpleAuthClient();
+let simpleAuthClient = require('react-native-simple-aut');
 ```
 
 Configure the library with a single provider:
