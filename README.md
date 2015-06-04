@@ -34,7 +34,7 @@ Create a configuration object for each of the providers you want to authorize wi
  - tumblr (`consumer_key`, `consumer_secret`)
  - linkedin-web (`client_id`, `client_secret`, `redirect_uri`)
 
-See [secrets.example.js](blob/master/secrets.example.js).
+See [secrets.example.js](/secrets.example.js).
 
 [Other providers supported by SimpleAuth](https://github.com/calebd/SimpleAuth#simpleauth) may work, but haven't been tested.
 
