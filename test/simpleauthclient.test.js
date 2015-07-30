@@ -12,10 +12,12 @@ describe('SimpleAuthClient', () => {
     configureSpy = sinon.spy();
     authorizeSpy = sinon.spy();
     simpleAuthClient = proxyquire('../lib/simpleauthclient', {
-      NativeModules: {
-        SimpleAuthWrapper: {
-          configure: configureSpy,
-          authorize: authorizeSpy
+      'react-native': {
+        NativeModules: {
+          SimpleAuthWrapper: {
+            configure: configureSpy,
+            authorize: authorizeSpy
+          }
         },
         '@noCallThru': true
       }
