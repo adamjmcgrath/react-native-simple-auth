@@ -17,9 +17,9 @@ describe('SimpleAuthClient', () => {
           SimpleAuthWrapper: {
             configure: configureSpy,
             authorize: authorizeSpy
-          },
-          '@noCallThru': true
-        }
+          }
+        },
+        '@noCallThru': true
       }
     });
   });
