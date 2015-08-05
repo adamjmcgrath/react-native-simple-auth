@@ -32,16 +32,23 @@ RCT_EXPORT_METHOD(authorize:(NSString*)provider
       callback(@[[NSNull null], token, [extra objectForKey: @"raw_info"]]);
     } else {
       if (error) {
+        NSMutableDictionary *dict=[NSMutableDictionary dictionaryWithCapacity:1];
+        [dict setObject:[NSNumber numberWithInteger:error.code] forKey:@"code"];
+
+        // Add an error description, if it exists.
         NSDictionary *userInfo = [error userInfo];
-        NSString *errorString = [[userInfo objectForKey:NSUnderlyingErrorKey] localizedDescription];
-        NSDictionary *dict=@{@"code": [NSNumber numberWithInteger:error.code],
-                             @"description": errorString};
+        if (userInfo) {
+          NSString *errorString = [[userInfo objectForKey:NSUnderlyingErrorKey] localizedDescription];
+          if (errorString) {
+            [dict setObject:errorString forKey:@"description"];
+          }
+        }
+
         callback(@[dict]);
       } else {
         callback(@[@true]);
       }
     }
-
   }];
 }
 
