@@ -49,6 +49,7 @@ RCT_EXPORT_METHOD(authorize:(NSString*)provider
         callback(@[@true]);
       }
     }
+
   }];
 }
 
