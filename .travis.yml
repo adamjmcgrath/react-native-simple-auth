@@ -5,6 +5,7 @@ node_js:
 
 deploy:
   provider: npm
+  edge: true
   email: adamjmcgrath@gmail.com
   api_key:
     secure: p2RtKFppPgLZME2ceK8SROmpXcreGoBeqpxJIee3Y5a2XXOa+ughWAN/tcvO8gTngVHYr2XEU+TlDpidC1KGRTZv/4cx1WH0XwnDw1gpcNB3v8G6znx0X0i9XgBCH/HlzLbW2+/zIVVqfzBW3Z2YMf9nen9aO/LhvlOeiu4B4FO2o54ODYcpQO6jdZLhSf7aC+ua29ixvTOG97Z31DUxRI+Idg83VxbCWNEfKmZuxDPrabZhKIDUZK/3LqsmF0HE11kAe/a4lHD0mjO+DAQpWXkauP6FeeKKDnDASs7Sc/XdWCEFTuP9JtN1d7XWTRKPBj/1D62+LCp6jHwzSFPxM6oO7i63iP6y7Fqgod9Okh6qvwkn3nKmXm7WmQJbLS7VGTNQ/G5O6HlQVgmnYRBh3iRptYUHF9wmBcdfXTVQ4bdL7QLVUuzaIBlOGv/9O5M0a19erkq+xQUrasZpnVRW+BcIjbNwNoLRFitDSK6BlRrItj2TT2OOokA9XqMorjMJl9IXReGmKDD1cGctPP1KfSOUEjnollP5JX7IgNf1O13ZRqjfkTuWvCgmXsGN52iD8+CP1KD9SMeu9vH99tMxXIl7JLgjkzZ8o4Z+LZda0Qf3kvCIYikz17G+5hDOalaaDktvDmjEzshFL0riR+SlbVWf9rs1Z3+bXVRmK7VM0go=
@@ -14,7 +15,7 @@ deploy:
 
 after_deploy:
   - openssl aes-256-cbc -K $encrypted_ed11b53bbeb9_key -iv $encrypted_ed11b53bbeb9_iv -in .travis/deploy_key.enc -out .travis/deploy_key -d
-  - NPM_API_KEY=foo npm version --no-git-tag-version minor
+  - npm version --no-git-tag-version minor
   - git commit -am "Bump minor for next release [ci skip]"
   - chmod 600 .travis/deploy_key.pem
   - ssh-add .travis/deploy_key
