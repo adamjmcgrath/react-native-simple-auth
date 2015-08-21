@@ -35,4 +35,5 @@ secrets.js
 .idea
 docs
 .travis/deploy_key
+.travis/deploy_key.pem
 .travis/deploy_key.pub
