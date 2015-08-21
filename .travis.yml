@@ -12,11 +12,10 @@ deploy:
   on:
     tags: true
     repo: adamjmcgrath/react-native-simple-auth
+  skip_cleanup: true
 
 after_deploy:
   - openssl aes-256-cbc -K $encrypted_ed11b53bbeb9_key -iv $encrypted_ed11b53bbeb9_iv -in .travis/deploy_key.enc -out .travis/deploy_key.pem -d
-  - git fetch
-  - git checkout master
   - npm version --no-git-tag-version minor
   - git commit -am "Bump minor for next release [ci skip]"
   - chmod 600 .travis/deploy_key.pem
