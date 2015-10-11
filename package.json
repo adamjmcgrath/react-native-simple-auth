@@ -8,7 +8,7 @@
     "test": "mocha ./test/* --compilers js:mocha-traceur"
   },
   "dependencies": {
-    "react-native": "0.4.4"
+    "react-native": "<=0.11.4"
   },
   "repository": {
     "type": "git",
