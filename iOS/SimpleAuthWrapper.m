@@ -21,6 +21,15 @@ RCT_EXPORT_METHOD(authorize:(NSString*)provider
     if (responseObject) {
       NSDictionary *credentials = [responseObject objectForKey: @"credentials"];
       NSString *token = [credentials objectForKey: @"token"];
+      NSString *secret = [credentials objectForKey: @"secret"];
+      
+      NSDictionary *result;
+      if (secret == nil) {
+        result = @{@"token": token};
+      }
+      else {
+        result = @{@"token": token, @"secret": secret};
+      }
       
       NSDictionary *extra;
       if ([responseObject objectForKey:@"extra"]) {
@@ -29,7 +38,7 @@ RCT_EXPORT_METHOD(authorize:(NSString*)provider
         extra = responseObject;
       }
       
-      callback(@[[NSNull null], token, [extra objectForKey: @"raw_info"]]);
+      callback(@[[NSNull null], result, [extra objectForKey: @"raw_info"]]);
     } else {
       if (error) {
         NSMutableDictionary *dict=[NSMutableDictionary dictionaryWithCapacity:1];
