@@ -7,9 +7,6 @@
     "start": "node_modules/react-native/packager/packager.sh",
     "test": "mocha ./test/* --compilers js:mocha-traceur"
   },
-  "peerDependencies": {
-    "react-native": "<=0.13.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/adamjmcgrath/react-native-simple-auth"
@@ -32,6 +29,7 @@
     "mocha": "^2.2.5",
     "mocha-traceur": "^2.1.0",
     "proxyquire": "^1.5.0",
+    "react-native": "<=0.11.4",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0"
   }
