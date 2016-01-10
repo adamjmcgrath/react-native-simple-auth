@@ -1,6 +1,6 @@
 {
   "name": "react-native-simple-auth",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "Native social authentication for React Native on iOS",
   "main": "lib/simpleauthclient.js",
   "scripts": {
