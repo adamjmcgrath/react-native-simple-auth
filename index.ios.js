@@ -19,8 +19,6 @@ let secrets = require('./secrets');
 class Profile extends React.Component {
 
   constructor(props) {
-    props.token = props.info.token;
-    delete props.info.token;
     super(props);
     this.state = {
       name: this.getName(props.provider),
@@ -64,7 +62,7 @@ class Profile extends React.Component {
       case 'tumblr':
         return `http://api.tumblr.com/v2/blog/${this.props.info.name}.tumblr.com/avatar/96`;
       case 'linkedin-web':
-        var profileUrl = `https://api.linkedin.com/v1/people/~:(picture-url)?oauth2_access_token=${this.props.token}&format=json`
+        var profileUrl = `https://api.linkedin.com/v1/people/~:(picture-url)?oauth2_access_token=${this.props.info.token}&format=json`
         fetch(profileUrl)
           .then(response => response.json())
           .then(responseJson => {
