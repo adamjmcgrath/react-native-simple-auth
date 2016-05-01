@@ -13,8 +13,9 @@ RCT_EXPORT_METHOD(configure:(NSString*)provider config:(NSDictionary*)config
 };
 
 RCT_EXPORT_METHOD(authorize:(NSString*)provider
+                  options:(NSDictionary*)opts
                   callback:(RCTResponseSenderBlock)callback) {
-  [SimpleAuth authorize:provider completion:^(id responseObject, NSError *error) {
+  [SimpleAuth authorize:provider options:opts completion:^(id responseObject, NSError *error) {
 
     NSLog(@"\nResponse: %@\nError:%@", responseObject, error);
     
