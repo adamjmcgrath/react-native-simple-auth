@@ -11,7 +11,7 @@ describe('SimpleAuthClient', () => {
   before(() => {
     configureSpy = sinon.spy();
     authorizeSpy = sinon.spy();
-    simpleAuthClient = proxyquire('../lib/simpleauthclient', {
+    simpleAuthClient = proxyquire('../index', {
       'react-native': {
         NativeModules: {
           SimpleAuthWrapper: {

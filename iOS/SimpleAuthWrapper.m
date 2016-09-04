@@ -17,12 +17,12 @@ RCT_EXPORT_METHOD(authorize:(NSString*)provider
   [SimpleAuth authorize:provider completion:^(id responseObject, NSError *error) {
 
     NSLog(@"\nResponse: %@\nError:%@", responseObject, error);
-    
+
     if (responseObject) {
       NSDictionary *credentials = [responseObject objectForKey: @"credentials"];
       NSString *token = [credentials objectForKey: @"token"];
       NSString *secret = [credentials objectForKey: @"secret"];
-      
+
       NSDictionary *result;
       if (secret == nil) {
         result = @{@"token": token};
@@ -30,14 +30,14 @@ RCT_EXPORT_METHOD(authorize:(NSString*)provider
       else {
         result = @{@"token": token, @"secret": secret};
       }
-      
+
       NSDictionary *extra;
       if ([responseObject objectForKey:@"extra"]) {
         extra = [responseObject objectForKey: @"extra"];
       } else {
         extra = responseObject;
       }
-      
+
       callback(@[[NSNull null], result, [extra objectForKey: @"raw_info"]]);
     } else {
       if (error) {

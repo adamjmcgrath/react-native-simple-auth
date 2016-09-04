@@ -1,11 +1,10 @@
 {
   "name": "react-native-simple-auth",
-  "version": "0.3.0",
-  "description": "Native social authentication for React Native on iOS",
-  "main": "lib/simpleauthclient.js",
+  "version": "1.0.0",
+  "description": "Native social authentication for React Native",
+  "main": "index.js",
   "scripts": {
-    "start": "node_modules/react-native/packager/packager.sh",
-    "test": "mocha ./test/* --compilers js:mocha-traceur"
+    "test": "mocha ./test/*"
   },
   "repository": {
     "type": "git",
@@ -24,13 +23,15 @@
     "url": "https://github.com/adamjmcgrath/react-native-simple-auth/issues"
   },
   "devDependencies": {
-    "chai": "^2.3.0",
-    "doxx": "^1.4.0",
-    "mocha": "^2.2.5",
-    "mocha-traceur": "^2.1.0",
+    "chai": "^3.5.0",
+    "doxx": "^2.1.1",
+    "mocha": "^3.0.2",
     "proxyquire": "^1.5.0",
-    "react-native": "^0.17.0",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
   }
 }
