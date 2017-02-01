@@ -81,6 +81,20 @@ Providers Setup
 - Add the deep link scheme for the callback (Your App Name, eg `testapp`) to your `AndroidManifest.xml` eg https://github.com/adamjmcgrath/ReactNativeSimpleAuthExample/blob/master/android/app/src/main/AndroidManifest.xml#L28-L33
 - Add the deep link scheme for the callback to your iOS app, eg https://dev.twitter.com/cards/mobile/url-schemes (Due to A Facebook bug, this should always be the top one in the list)
 
+### GitHub
+- Create an app on https://github.com/settings/applications
+- Put your deep link as the url
+- Your configuration object should contain the 'OAuth Consumer Key' as `appId`, the 'OAuth Consumer Secret' ass `appSecret` and the `callback`, eg
+```js
+{
+  appId: '1234567890abc',
+  appSecret: '1234567890abc',
+  callback: 'testapp://authorize',
+}
+```
+- Add the deep link scheme for the callback (Your App Name, eg `testapp`) to your `AndroidManifest.xml` eg https://github.com/adamjmcgrath/ReactNativeSimpleAuthExample/blob/master/android/app/src/main/AndroidManifest.xml#L28-L33
+- Add the deep link scheme for the callback to your iOS app, eg https://dev.twitter.com/cards/mobile/url-schemes (Due to A Facebook bug, this should always be the top one in the list)
+
 Usage
 =====
 

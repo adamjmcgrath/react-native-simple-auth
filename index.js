@@ -10,10 +10,12 @@ import * as _google from './lib/providers/google';
 import * as _facebook from './lib/providers/facebook';
 import * as _twitter from './lib/providers/twitter';
 import * as _tumblr from './lib/providers/tumblr';
+import * as _github from './lib/providers/github';
 
 export const google = login(_google, platform);
 export const facebook = login(_facebook, platform);
 export const twitter = login(_twitter, platform);
 export const tumblr = login(_tumblr, platform);
+export const github = login(_github, platform);
 
 export default login(__, platform);
