@@ -48,6 +48,8 @@ Providers Setup
 {
   appId: '1234567890',
   callback: 'fb1234567890://authorize',
+  scope: 'user_friends', // you can override the default scope here
+  fields: ['email', 'first_name', 'last_name'], // you can override the default fields here
 }
 ```
 - Add the deep link scheme for the callback (Your Bundle ID, eg `fb1234567890`) to your `AndroidManifest.xml` eg https://github.com/adamjmcgrath/ReactNativeSimpleAuthExample/blob/master/android/app/src/main/AndroidManifest.xml#L28-L33
