@@ -1,5 +1,7 @@
 # react-native-simple-auth [![Build Status](https://travis-ci.org/adamjmcgrath/react-native-simple-auth.svg?branch=chore%2Frelease-tasks)](https://travis-ci.org/adamjmcgrath/react-native-simple-auth)
 
+Fork of original react-native-simple-auth with fixes to run in Safari View under iOS to avoid AppStore publishing issues
+
 ## OAuth login for React Native
 
   * [Screencast](#screencast)
