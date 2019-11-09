@@ -114,7 +114,7 @@ google({
   appId: '123-123abc.apps.googleusercontent.com',
   callback: 'com.reactnativesimpleauthexample:/oauth2redirect',
 }).then((info) => {
-  // [info user](info.user) - user details from the provider
+  // info user - user details from the provider
   // info.credentials - tokens from the provider
 }).catch((error) => {
   // error.code
