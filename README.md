@@ -84,8 +84,8 @@ Providers Setup
 - Add the deep link scheme for the callback to your iOS app, eg https://dev.twitter.com/cards/mobile/url-schemes (Due to A Facebook bug, this should always be the top one in the list)
 
 ### Untappd
-- Create an app on
-- Use a custom app prefix for the callback url
+- Create an app on https://untappd.com/api/register
+- Use a custom app prefix for the callback url.
 - Your configuration object should contain the app id and your callback url e.g.
 ```js
 {
@@ -114,7 +114,7 @@ google({
   appId: '123-123abc.apps.googleusercontent.com',
   callback: 'com.reactnativesimpleauthexample:/oauth2redirect',
 }).then((info) => {
-  // info.user - user details from the provider
+  // [info user](info.user) - user details from the provider
   // info.credentials - tokens from the provider
 }).catch((error) => {
   // error.code
