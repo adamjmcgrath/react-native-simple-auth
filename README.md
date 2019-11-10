@@ -83,6 +83,18 @@ Providers Setup
 - Add the deep link scheme for the callback (Your App Name, eg `testapp`) to your `AndroidManifest.xml` eg https://github.com/adamjmcgrath/ReactNativeSimpleAuthExample/blob/master/android/app/src/main/AndroidManifest.xml#L28-L33
 - Add the deep link scheme for the callback to your iOS app, eg https://dev.twitter.com/cards/mobile/url-schemes (Due to A Facebook bug, this should always be the top one in the list)
 
+### Untappd
+- Create an app on https://untappd.com/api/register
+- Use a custom app prefix for the callback url.
+- Your configuration object should contain the app id and your callback url e.g.
+```js
+{
+  appId: '123456789',
+  callback: 'testapp://authorize',
+}
+```
+- Register your deep link scheme with android and ios as described for other apps.
+
 Usage
 =====
 
